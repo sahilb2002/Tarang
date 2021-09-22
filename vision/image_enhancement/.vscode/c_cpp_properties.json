@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/sahil/myfiles/auv/yolov4/devel/include/**",
+        "/home/sahil/myfiles/auv/training/assing_1/work/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/sahil/myfiles/auv/yolov4/src/yolov4-for-darknet_ros/darknet_ros/darknet_ros/include/**",
+        "/home/sahil/myfiles/auv/training/assing_1/work/src/demo_bot_gazebo/include/**",
+        "/home/sahil/myfiles/auv/tarang_ws/src/Tarang/vision/image_enhancement/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}
