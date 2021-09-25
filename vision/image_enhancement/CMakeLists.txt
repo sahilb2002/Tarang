@@ -11,7 +11,12 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  cv_bridge
+  gencpp
+  cmake_modules
+  image_transport
 )
+find_package(OpenCV REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -116,19 +121,19 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/image_enhancement.cpp
+  # opencv
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
@@ -204,3 +209,11 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+# add_executable(publisher src/publisher.cpp)
+# target_link_libraries(publisher ${catkin_LIBRARIES} ${OpenCV_LIBS})
+
+# add_executable(subscriber src/subscriber.cpp)
+# target_link_libraries(subscriber ${catkin_LIBRARIES} ${OpenCV_LIBS})
+
+add_executable(enhancer src/enhance_node.cpp src/color_correction.cpp src/fusion.cpp)
+target_link_libraries(enhancer ${catkin_LIBRARIES} ${OpenCV_LIBS})

@@ -189,7 +189,7 @@ Mat weights::weight(Mat inp,double sigma = 0.25){
     w = lc1+ew1+sw+lapc;
     return w;
 }
-vector<Mat> weights::normalized_weights(Mat inp1,Mat inp2,double sigma=0.25){
+vector<Mat> weights::normalized_weights(Mat inp1,Mat inp2,double sigma){
     // assuming inp1, inp2 are 8uchar BGR image.
     Mat w1 = weight(inp1,sigma);
     Mat w2 = weight(inp2,sigma);
@@ -203,12 +203,11 @@ vector<Mat> weights::normalized_weights(Mat inp1,Mat inp2,double sigma=0.25){
     return out;
 }
 
-Mat laplace_blending(Mat inp1,Mat inp2){
+Mat laplace_blending(Mat inp1,Mat inp2,double sigma,int level){
     vector<Mat> wgh;
-    int level=6;
     weights w;
     pyramids p;
-    wgh = w.normalized_weights(inp1,inp2);
+    wgh = w.normalized_weights(inp1,inp2,sigma);
     vector<Mat> gauss1 = p.gauss_pyramid(wgh[0],level,true);
     vector<Mat> gauss2 = p.gauss_pyramid(wgh[1],level,true);
     vector<vector<Mat>> lap1 = p.laplace_pyramid_c3(inp1,level);

@@ -1,0 +1,9 @@
+---
+color_correction:
+  percentile: 5
+  lamda: 0.2
+  sigma_f: 0.1
+  sigma_g: 0.1
+fusion:
+  pyr_level: 6
+  exposedness_sigma: 0.25

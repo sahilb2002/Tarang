@@ -31,6 +31,6 @@ class weights{
     vector<Mat> normalized_weights(Mat inp1,Mat inp2,double sigma);
 
 };
-Mat laplace_blending(Mat inp1,Mat inp2);
+Mat laplace_blending(Mat inp1,Mat inp2,double sigma=0.25,int level=6);
 Mat binomial_kernel();
 #endif
