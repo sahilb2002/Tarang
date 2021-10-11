@@ -8,6 +8,7 @@ using namespace std;
 using namespace cv;
 
 class white_balancing{
+    // This class consists of functions which are used for white balancing.
     private:
         void clip_double(Mat& img,double min,double max);
         void clip_int(Mat& img,int min,int max);

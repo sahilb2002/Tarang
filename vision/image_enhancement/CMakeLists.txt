@@ -215,5 +215,5 @@ include_directories(
 # add_executable(subscriber src/subscriber.cpp)
 # target_link_libraries(subscriber ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
-add_executable(enhancer src/enhance_node.cpp src/color_correction.cpp src/fusion.cpp)
+add_executable(enhancer src/enhance_node.cpp src/color_correction.cpp src/fusion.cpp src/rghs.cpp)
 target_link_libraries(enhancer ${catkin_LIBRARIES} ${OpenCV_LIBS})

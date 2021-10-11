@@ -7,6 +7,8 @@ using namespace cv;
 
 void white_balancing::clip_double(Mat& img,double min,double max){
     // assuming img is 32float C1.
+    // This function clips the img between min and max values.
+    
     for(int i=0;i<img.rows;i++){
         for(int j=0;j<img.cols;j++){
             if(img.at<float>(i,j)<min)
@@ -19,6 +21,8 @@ void white_balancing::clip_double(Mat& img,double min,double max){
 
 void white_balancing::clip_int(Mat& img,int min,int max){
     // assuming img is 8Uchar C1 type.
+    // clips the img between min and max
+    
     for(int i=0;i<img.rows;i++){
         for(int j=0;j<img.cols;j++){
             if(img.at<uchar>(i,j)<min)
@@ -31,6 +35,8 @@ void white_balancing::clip_int(Mat& img,int min,int max){
 
 void white_balancing::percentile(Mat& img,double per,int* min,int* max){
     // assuming img id 8uchar c1 type.
+    // it find the pixel intensity at per and 100-per percentile in sorted image(flattening the image into 1-d array and sorting it).
+    
     int hist[256]={0};
     int i;
     for(i=0;i<img.rows;i++){
@@ -56,7 +62,9 @@ void white_balancing::percentile(Mat& img,double per,int* min,int* max){
 }
 
 void white_balancing::algo1(Mat& image,double per,Mat& im){
-    // cout<< typeid(img.at<uint>(0,0)).name();
+    // assuming image is 8uc3 BGR image
+    // Applies histogram streching to image for color correction.
+
     Mat ims = image.clone();
     Mat img;
     int chs = 3;
@@ -81,6 +89,8 @@ void white_balancing::algo1(Mat& image,double per,Mat& im){
 
 void white_balancing::gray_world_algo(Mat& img,Mat& out,double lambda=0.2){
     // img is 8uc3 image
+    // applies modified gray world algorithm for color correction, as described in research paper.
+    
     Mat ims;
     img.convertTo(ims,CV_32FC3);
     ims = ims/255.0;
@@ -106,6 +116,8 @@ void white_balancing::gray_world_algo(Mat& img,Mat& out,double lambda=0.2){
 
 void white_balancing::algo_2(Mat& img,Mat& out){
     // img is 8uc3 BGR image
+    // applies illumination correction to red and blue channel. red channel is not overstreched using this algorithm. 
+    
     vector<Mat> chs;
     Mat ims;
     img.convertTo(ims,CV_32FC3);
@@ -143,6 +155,10 @@ void white_balancing::algo_2(Mat& img,Mat& out){
 }
 
 Mat white_balance(Mat& img,double per,double lambda){
+    // img is 8UC3 BGR image.
+    // a wrapper function for white balancing. Only this function is called directly for white balancing.
+    // it returns color corrected, white balanced image.
+    
     Mat tmp1,tmp2,out;
     white_balancing wb;
     wb.algo_2(img,tmp1);
@@ -152,12 +168,18 @@ Mat white_balance(Mat& img,double per,double lambda){
 }
 
 Mat biletral(Mat& img, int n,double sf,double sg){
+    // img is 8Uc3 BGR image.
+    // biletral filter is applied on img, for noise reduction.
+
     Mat im = img.clone();
     Mat out;
     bilateralFilter(im,out,n,sf,sg);
     return out;
 }
 Mat clahe(Mat& img, double clip, int n){
+    // img is 8UC3 BGR image.
+    // returns image after applying clahe algorithm on img.
+
     Mat im,tmp,clahed;
     cvtColor(img,im,COLOR_BGR2HSV);
     vector<Mat> hsv;
